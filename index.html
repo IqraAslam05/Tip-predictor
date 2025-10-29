@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Predictor App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>💡 Tip Prediction App</h1>
+        <p>Enter details below to predict the expected tip amount.</p><br>
+
+       <form method="POST">
+    <label>Total Bill:</label>
+    <input type="number" step="0.01" name="total_bill" value="{{ total_bill }}" required>
+
+    <label>Size:</label>
+    <input type="number" name="size" value="{{ size }}" required>
+
+    <label>Smoker:</label>
+    <select name="smoker" required>
+      <option value="" disabled {% if not smoker %}selected{% endif %}>Select</option>
+      <option value="yes" {% if smoker == 'yes' %}selected{% endif %}>Yes</option>
+      <option value="no" {% if smoker == 'no' %}selected{% endif %}>No</option>
+    </select>
+
+    <button type="submit">Predict</button>
+  </form>
+
+
+        {% if prediction_text %}
+            <div class="result">{{ prediction_text }}</div>
+         <script>
+             if (window.location.search) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+             
+         </script>
+
+        {% endif %}
+    </div>
+</body>
+</html>
